@@ -1,11 +1,9 @@
-package com.enicholson125.meteor.data
+package com.enicholson125.calorielogger.data
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Timestamp
-import java.time.LocalDate
 import java.util.*
 
 @Entity(

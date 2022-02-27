@@ -1,13 +1,9 @@
-package com.enicholson125.meteor.data
+package com.enicholson125.calorielogger.data
 
 import android.icu.text.SimpleDateFormat
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
-import java.text.DateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 /**

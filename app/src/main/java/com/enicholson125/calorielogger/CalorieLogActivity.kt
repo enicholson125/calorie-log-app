@@ -1,6 +1,5 @@
-package com.enicholson125.meteor
+package com.enicholson125.calorielogger
 
-import android.util.Log
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,10 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.activity.viewModels
 import android.widget.TextView
-import com.enicholson125.meteor.utilities.InjectorUtils
-import com.enicholson125.meteor.data.CalorieLog
-import com.enicholson125.meteor.utilities.DateUtils
-import com.enicholson125.meteor.viewmodels.CalorieLogViewModel
+import com.enicholson125.calorielogger.utilities.InjectorUtils
+import com.enicholson125.calorielogger.data.CalorieLog
+import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModel
 import java.util.*
 
 class CalorieLogActivity : AppCompatActivity() {

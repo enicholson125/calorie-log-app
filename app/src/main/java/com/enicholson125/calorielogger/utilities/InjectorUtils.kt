@@ -1,8 +1,8 @@
-package com.enicholson125.meteor.utilities
+package com.enicholson125.calorielogger.utilities
 
 import android.content.Context
-import com.enicholson125.meteor.data.*
-import com.enicholson125.meteor.viewmodels.CalorieLogViewModelFactory
+import com.enicholson125.calorielogger.data.*
+import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModelFactory
 
 /**
  * Static methods used to inject classes needed for various Activities and Fragments.

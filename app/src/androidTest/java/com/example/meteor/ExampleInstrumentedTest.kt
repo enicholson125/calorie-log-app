@@ -1,4 +1,4 @@
-package com.enicholson125.meteor
+package com.enicholson125.calorielogger
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

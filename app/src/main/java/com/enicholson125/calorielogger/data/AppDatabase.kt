@@ -1,11 +1,10 @@
-package com.enicholson125.meteor.data
+package com.enicholson125.calorielogger.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.TypeConverters
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import java.io.File
 
 /**
  * The Room database for this app

@@ -1,8 +1,5 @@
-package com.enicholson125.meteor.utilities
+package com.enicholson125.calorielogger.utilities
 
-import android.icu.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.*
 import kotlin.random.Random
 
 val idCharPool : List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')

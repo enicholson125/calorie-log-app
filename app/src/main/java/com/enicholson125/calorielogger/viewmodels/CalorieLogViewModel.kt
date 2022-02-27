@@ -1,16 +1,12 @@
-package com.enicholson125.meteor.viewmodels
+package com.enicholson125.calorielogger.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.Observer
-import com.enicholson125.meteor.data.*
-import com.enicholson125.meteor.utilities.GeneratorUtils
-import com.enicholson125.meteor.utilities.DateUtils
+import com.enicholson125.calorielogger.data.*
+import com.enicholson125.calorielogger.utilities.GeneratorUtils
+import com.enicholson125.calorielogger.utilities.DateUtils
 import kotlinx.coroutines.launch
 import java.util.*
 

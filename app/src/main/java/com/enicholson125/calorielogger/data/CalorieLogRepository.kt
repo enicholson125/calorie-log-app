@@ -1,4 +1,4 @@
-package com.enicholson125.meteor.data
+package com.enicholson125.calorielogger.data
 
 
 class CalorieLogRepository private constructor(

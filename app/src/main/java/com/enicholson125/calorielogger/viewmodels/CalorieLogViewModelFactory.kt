@@ -1,8 +1,8 @@
-package com.enicholson125.meteor.viewmodels
+package com.enicholson125.calorielogger.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.enicholson125.meteor.data.CalorieLogRepository
+import com.enicholson125.calorielogger.data.CalorieLogRepository
 
 /**
  * Factory for creating a [CalorieLogViewModel] with a constructor that

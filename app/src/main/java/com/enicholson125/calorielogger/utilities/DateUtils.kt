@@ -1,7 +1,5 @@
-package com.enicholson125.meteor.utilities;
+package com.enicholson125.calorielogger.utilities;
 
-import android.util.Log
-import java.text.DateFormat
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
