@@ -1,4 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" tools:context="com.enicholson125.meteor.AdventureTextActivity">
-    <item android:id="@+id/view_animals" android:orderInCategory="1" android:title="@string/view_animals" app:showAsAction="always" android:icon="@drawable/ic_launcher_foreground" />
-    <item android:id="@+id/reset_history" android:orderInCategory="100" android:title="@string/reset_history" app:showAsAction="never" />
-</menu>

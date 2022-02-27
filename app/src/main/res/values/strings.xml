@@ -1,13 +1,9 @@
 <resources>
-    <string name="app_name">Meteor</string>
+    <string name="app_name">Challenge</string>
     <string name="unset">unset</string>
-    <string name="reset_history">Restart Adventure</string>
-    <string name="cancel">Cancel</string>
-    <string name="adopt">Adopt!</string>
-    <string name="adopt_hint">Persephone Figglesworth</string>
-    <string name="adopt_title">Name your %1$s</string>
-    <string name="adopt_congrats">CONGRATULATIONS, you have adopted %1$s the %2$s!</string>
-    <string name="view_animals">View Adopted Animals</string>
+    <string name="logs_heading">Logs</string>
     <string name="empty"></string>
-    <string name="no_animals">You have not found any animals yet. Keep a close eye out on your adventures...</string>
+    <string name="calorie_hint">100</string>
+    <string name="description_hint">Honey toast</string>
+    <string name="add_calorie_log">Add Entry</string>
 </resources>

@@ -14,11 +14,6 @@ The built APK is put in `app/build/outputs/apk`.
 ## To build the database
 
 ```
-sqlite3 -init meteor_schema.sql seeddatabase.db
-.separator "_"
-.import text_snippets.csv text_snippets
-.import animal_types.csv animal_types
-.separator ","
-.quit
-mv seeddatabase.db app/src/main/assets
+sqlite3 -init app/src/main/assets/seeddb.sql seeddatabase.db
+mv seeddatabase.db app/src/main/assets/
 ```

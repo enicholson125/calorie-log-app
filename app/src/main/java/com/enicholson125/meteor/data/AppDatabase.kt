@@ -5,18 +5,15 @@ import androidx.room.Database
 import androidx.room.TypeConverters
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.enicholson125.meteor.utilities.DATABASE_NAME
+import java.io.File
 
 /**
  * The Room database for this app
  */
-@Database(entities = [TextSnippet::class, Species::class, AdoptedAnimal::class, TextHistory::class], version = 1, exportSchema = false)
+@Database(entities = [CalorieLog::class], version = 1, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun textSnippetDAO(): TextSnippetDAO
-    abstract fun textHistoryDAO(): TextHistoryDAO
-    abstract fun speciesDAO(): SpeciesDAO
-    abstract fun adoptedAnimalDAO(): AdoptedAnimalDAO
+    abstract fun calorieLogDAO(): CalorieLogDAO
 
     companion object {
 
@@ -29,10 +26,10 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-                .createFromAsset("database/seeddatabase.db")
-                .allowMainThreadQueries() // TODO REMOVE
+            return Room.databaseBuilder(context, AppDatabase::class.java, "meteor-db")
+                .createFromAsset("seeddatabase.db")
                 .build()
         }
     }
