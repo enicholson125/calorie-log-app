@@ -12,11 +12,15 @@ import com.enicholson125.calorielogger.utilities.InjectorUtils
 import com.enicholson125.calorielogger.data.CalorieLog
 import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModel
 import java.util.*
+import nl.dionsegijn.konfetti.xml.KonfettiView
+import com.enicholson125.calorielogger.konfetticonfig.Presets
 
 class CalorieLogActivity : AppCompatActivity() {
     private val model: CalorieLogViewModel by viewModels {
         InjectorUtils.provideCalorieLogViewModelFactory(this)
     }
+
+    private lateinit var viewKonfetti: KonfettiView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +54,41 @@ class CalorieLogActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
             this.finish()
         }
+
+        viewKonfetti = findViewById(R.id.konfettiView)
+        findViewById<Button>(R.id.btnFestive).setOnClickListener { festive() }
+        findViewById<Button>(R.id.btnExplode).setOnClickListener { explode() }
+        findViewById<Button>(R.id.btnParade).setOnClickListener { parade() }
+        findViewById<Button>(R.id.btnRain).setOnClickListener { rain() }
+    }
+
+
+    private fun festive() {
+        /**
+         * See [Presets] for this configuration
+         */
+        viewKonfetti.start(Presets.festive())
+    }
+
+    private fun explode() {
+        /**
+         * See [Presets] for this configuration
+         */
+        viewKonfetti.start(Presets.explode())
+    }
+
+    private fun parade() {
+        /**
+         * See [Presets] for this configuration
+         */
+        viewKonfetti.start(Presets.parade())
+    }
+
+    private fun rain() {
+        /**
+         * See [Presets] for this configuration
+         */
+        viewKonfetti.start(Presets.rain())
     }
 
     fun formatCalorieLogs(logs: List<CalorieLog>): String {
