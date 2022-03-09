@@ -21,6 +21,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="10sp"
             android:textSize="50sp"
+            android:id="@+id/sweet_calorie_count"
+            android:text="@string/unset" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:textSize="30sp"
             android:id="@+id/calorie_count"
             android:text="@string/unset" />
 
@@ -45,6 +53,14 @@
             android:layout_marginRight="20sp"
             android:layout_marginBottom="4sp"
             android:hint="@string/description_hint" />
+
+        <CheckBox
+            android:id="@+id/sweet_checkbox"
+            android:layout_width="wrap_content"
+            android:checked="false"
+            android:text="@string/is_sweet"
+            android:layout_height="wrap_content"/>
+
 
         <Button
             android:layout_width="wrap_content"

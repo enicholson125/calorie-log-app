@@ -14,13 +14,17 @@ interface CalorieLogDAO {
     @Query("SELECT SUM(calories) FROM calorie_log")
     fun getCalorieTotal(): LiveData<Int>
 
-    @Query("SELECT id,time_logged,calories,description FROM calorie_log ORDER BY time_logged DESC LIMIT 10")
+    @Query("SELECT SUM(calories) FROM calorie_log WHERE sweet=1")
+    fun getSweetCalorieTotal(): LiveData<Int>
+
+    @Query("SELECT id,time_logged,calories,description,sweet FROM calorie_log ORDER BY time_logged DESC LIMIT 10")
     fun getLatestTenCalorieLogs(): LiveData<List<CalorieLog>>
 
-    // TODO: this should use ORDER BY so we don't get all of them
-    // TODO: have a flag in the database for daily budget
-    @Query("SELECT time_logged FROM calorie_log WHERE description='Daily Budget' ORDER BY time_logged DESC LIMIT 1")
+    @Query("SELECT time_logged FROM calorie_log WHERE description='Daily Budget Full' AND sweet=0 ORDER BY time_logged DESC LIMIT 1")
     fun getLatestDailyBudgetTime(): LiveData<Date>
+
+    @Query("SELECT time_logged FROM calorie_log WHERE description='Daily Budget' AND sweet=1 ORDER BY time_logged DESC LIMIT 1")
+    fun getLatestSweetDailyBudgetTime(): LiveData<Date>
 
     @Insert
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog)

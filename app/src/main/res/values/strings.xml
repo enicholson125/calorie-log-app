@@ -6,4 +6,5 @@
     <string name="calorie_hint">100</string>
     <string name="description_hint">Honey toast</string>
     <string name="add_calorie_log">Add Entry</string>
+    <string name="is_sweet">Sweet</string>
 </resources>
