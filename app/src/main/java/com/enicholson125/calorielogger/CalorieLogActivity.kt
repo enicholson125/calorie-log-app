@@ -2,6 +2,7 @@ package com.enicholson125.calorielogger
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
@@ -23,18 +24,27 @@ class CalorieLogActivity : AppCompatActivity() {
 
         setContentView(R.layout.main_page)
 
+        val sweetCalorieCountView = findViewById<TextView>(R.id.sweet_calorie_count)
+        val sweetCalorieCountObserver = Observer<Int> { calorieCount ->
+            sweetCalorieCountView.text = calorieCount.toString()
+        }
+        model.sweetCalorieTotal.observe(this, sweetCalorieCountObserver)
+
         val calorieCountView = findViewById<TextView>(R.id.calorie_count)
         val calorieCountObserver = Observer<Int> { calorieCount ->
             calorieCountView.text = calorieCount.toString()
         }
         model.calorieTotal.observe(this, calorieCountObserver)
 
+        val checkBox = findViewById<CheckBox>(R.id.sweet_checkbox);
+
         val calorieEntry = findViewById<EditText>(R.id.enter_calories)
         val descriptionEntry = findViewById<EditText>(R.id.enter_description)
         findViewById<Button>(R.id.add_calorie_log).setOnClickListener { _ ->
             model.addUserCalorieLog(
                 calorieEntry.getText().toString().toInt(),
-                descriptionEntry.getText().toString()
+                descriptionEntry.getText().toString(),
+                checkBox.isChecked()
             )
         }
 
@@ -46,6 +56,9 @@ class CalorieLogActivity : AppCompatActivity() {
 
         val dailyBudgetTesterObserver = Observer<Date> {}
         model.dailyBudgetTester.observe(this, dailyBudgetTesterObserver)
+
+        val dailySweetBudgetTesterObserver = Observer<Date> {}
+        model.dailySweetBudgetTester.observe(this, dailySweetBudgetTesterObserver)
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
             this.finish()
