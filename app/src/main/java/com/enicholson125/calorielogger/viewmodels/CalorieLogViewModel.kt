@@ -17,7 +17,7 @@ class CalorieLogViewModel(
     private val calorieLogRepository: CalorieLogRepository,
 ) : ViewModel() {
     private val idLength = 10
-    private val dailyBudgetAmount = 2500
+    private val dailyBudgetAmount = 2000
     private val dailySweetBudgetAmount = 500
     private val latestDailyBudgetTime = calorieLogRepository.getLatestDailyBudgetTime()
     private val latestSweetDailyBudgetTime = calorieLogRepository.getLatestSweetDailyBudgetTime()
