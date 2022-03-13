@@ -2,14 +2,13 @@ package com.enicholson125.calorielogger
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.activity.viewModels
-import android.widget.TextView
 import com.enicholson125.calorielogger.utilities.InjectorUtils
 import com.enicholson125.calorielogger.data.CalorieLog
 import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModel
@@ -52,18 +51,42 @@ class CalorieLogActivity : AppCompatActivity() {
         val descriptionEntry = findViewById<EditText>(R.id.enter_description)
         findViewById<Button>(R.id.add_calorie_log).setOnClickListener (fun(_) {
             model.addUserCalorieLog(
-                calorieEntry.getText().toString().toInt(),
-                descriptionEntry.getText().toString(),
-                checkBox.isChecked()
+                calorieEntry.text.toString().toInt(),
+                descriptionEntry.text.toString(),
+                checkBox.isChecked
             )
             calorieEntry.setText("")
             descriptionEntry.setText("")
-            checkBox.setChecked(false)
+            checkBox.isChecked = false
         })
 
-        val calorieLogView = findViewById<TextView>(R.id.calorie_logs)
+        val calorieLogTable = findViewById<TableLayout>(R.id.calorie_logs)
         val calorieLogObserver = Observer<List<CalorieLog>> { calorieLogs ->
-            calorieLogView.text = formatCalorieLogs(calorieLogs)
+            calorieLogTable.removeAllViews()
+            for (log in calorieLogs) {
+                val row = TableRow(this)
+                row.id = View.generateViewId()
+                row.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                val calories = TextView(this)
+                calories.id = View.generateViewId()
+                calories.text = log.calories.toString()
+                calories.setPadding(30, 10, 30, 10)
+                row.addView(calories)
+                val description = TextView(this)
+                description.id = View.generateViewId()
+                description.text = log.description
+                description.setPadding(30, 10, 30, 10)
+                row.addView(description)
+                val time = TextView(this)
+                time.id = View.generateViewId()
+                time.text = log.timeLogged.toString()
+                time.setPadding(30, 10, 30, 10)
+                row.addView(time)
+                calorieLogTable.addView(row)
+            }
         }
         model.calorieLogs.observe(this, calorieLogObserver)
 
@@ -93,13 +116,5 @@ class CalorieLogActivity : AppCompatActivity() {
             view.text = animation.animatedValue.toString()
         }
         animator.start()
-    }
-
-    fun formatCalorieLogs(logs: List<CalorieLog>): String {
-        var formattedLogs = ""
-        for (log in logs) {
-            formattedLogs = formattedLogs.plus("${log.format()}\n")
-        }
-        return formattedLogs
     }
 }

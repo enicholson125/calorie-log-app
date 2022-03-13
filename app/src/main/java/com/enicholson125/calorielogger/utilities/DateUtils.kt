@@ -23,6 +23,14 @@ object DateUtils {
         return Calendar.getInstance().time
     }
 
+    fun getCurrentDate(): Date {
+        var now = getCurrentDateTime()
+        now.hours = 0
+        now.minutes = 0
+        now.seconds = 0
+        return now
+    }
+
     fun addOneDay(date: Date): Date {
         val c = Calendar.getInstance()
         c.setTime(date)

@@ -20,6 +20,9 @@ interface CalorieLogDAO {
     @Query("SELECT id,time_logged,calories,description,sweet FROM calorie_log ORDER BY time_logged DESC LIMIT 10")
     fun getLatestTenCalorieLogs(): LiveData<List<CalorieLog>>
 
+    @Query("SELECT id,time_logged,calories,description,sweet FROM calorie_log WHERE time_logged >= :date ORDER BY time_logged DESC")
+    fun getCalorieLogsForDate(date: Date): LiveData<List<CalorieLog>>
+
     @Query("SELECT time_logged FROM calorie_log WHERE description='Daily Budget Full' AND sweet=0 ORDER BY time_logged DESC LIMIT 1")
     fun getLatestDailyBudgetTime(): LiveData<Date>
 

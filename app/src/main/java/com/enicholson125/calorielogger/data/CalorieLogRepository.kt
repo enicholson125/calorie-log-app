@@ -1,5 +1,7 @@
 package com.enicholson125.calorielogger.data
 
+import java.util.*
+
 
 class CalorieLogRepository private constructor(
     private val calorieLogDAO: CalorieLogDAO
@@ -12,7 +14,7 @@ class CalorieLogRepository private constructor(
 
     fun getLatestSweetDailyBudgetTime() = calorieLogDAO.getLatestSweetDailyBudgetTime()
 
-    fun getLatestTenCalorieLogs() = calorieLogDAO.getLatestTenCalorieLogs()
+    fun getCalorieLogsForDate(date: Date) = calorieLogDAO.getCalorieLogsForDate(date)
 
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog) = calorieLogDAO.insertCalorieLogEntry(calorieLogEntry)
 

@@ -24,8 +24,4 @@ data class CalorieLog(
     @ColumnInfo(name = "description") val description: String,
 
     @ColumnInfo(name = "sweet", defaultValue = "1") val isSweet: Boolean,
-) {
-    fun format(): String {
-        return "${this.timeLogged} ${this.calories} ${this.description} ${if (this.isSweet) "sweet" else "not-sweet" }"
-    }
-}
+)

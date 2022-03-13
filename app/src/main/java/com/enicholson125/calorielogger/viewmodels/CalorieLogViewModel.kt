@@ -57,6 +57,6 @@ class CalorieLogViewModel(
     val sweetCalorieTotal: LiveData<Int> = calorieLogRepository.getSweetCalorieTotal()
     val calorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal()
 
-    val calorieLogs: LiveData<List<CalorieLog>> = calorieLogRepository.getLatestTenCalorieLogs()
+    val calorieLogs: LiveData<List<CalorieLog>> = calorieLogRepository.getCalorieLogsForDate(DateUtils.getCurrentDate())
 }
 
