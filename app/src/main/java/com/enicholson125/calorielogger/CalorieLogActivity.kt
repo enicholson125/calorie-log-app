@@ -66,17 +66,19 @@ class CalorieLogActivity : AppCompatActivity() {
         val calorieLogObserver = Observer<List<CalorieLog>> { calorieLogs ->
             calorieLogTable.removeAllViews()
             for (log in calorieLogs) {
-                val row = TableRow(this)
-                row.id = View.generateViewId()
-                row.layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                row.addView(createLogTableView(log.calories.toString()))
-                row.addView(createLogTableView(log.description))
-                row.addView(createEditLogButton(log))
-                row.setPadding(0, 20, 0, 20)
-                calorieLogTable.addView(row)
+                if ((log.description != "Daily Budget") && (log.description != "Daily Budget Full")) {
+                    val row = TableRow(this)
+                    row.id = View.generateViewId()
+                    row.layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    row.addView(createLogTableView(log.getInvertedCalories().toString()))
+                    row.addView(createLogTableView(log.description))
+                    row.addView(createEditLogButton(log))
+                    row.setPadding(0, 10, 0, 20)
+                    calorieLogTable.addView(row)
+                }
             }
         }
         model.calorieLogs.observe(this, calorieLogObserver)
