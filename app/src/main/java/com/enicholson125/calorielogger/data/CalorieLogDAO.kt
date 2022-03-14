@@ -3,6 +3,7 @@ package com.enicholson125.calorielogger.data
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import java.util.*
 
@@ -29,6 +30,6 @@ interface CalorieLogDAO {
     @Query("SELECT time_logged FROM calorie_log WHERE description='Daily Budget' AND sweet=1 ORDER BY time_logged DESC LIMIT 1")
     fun getLatestSweetDailyBudgetTime(): LiveData<Date>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog)
 }

@@ -54,6 +54,12 @@ class CalorieLogViewModel(
         }
     }
 
+    fun updateCalorieLog(calories: Int, description: String, timeLog: Date, isSweet: Boolean, id: String) {
+        viewModelScope.launch{
+            calorieLogRepository.insertCalorieLogEntry(CalorieLog(id, timeLog, -calories, description, isSweet))
+        }
+    }
+
     val sweetCalorieTotal: LiveData<Int> = calorieLogRepository.getSweetCalorieTotal()
     val calorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal()
 

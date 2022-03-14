@@ -2,6 +2,7 @@ package com.enicholson125.calorielogger
 
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -61,6 +62,7 @@ class CalorieLogActivity : AppCompatActivity() {
         })
 
         val calorieLogTable = findViewById<TableLayout>(R.id.calorie_logs)
+        calorieLogTable.setPadding(40, 60, 40, 0)
         val calorieLogObserver = Observer<List<CalorieLog>> { calorieLogs ->
             calorieLogTable.removeAllViews()
             for (log in calorieLogs) {
@@ -70,21 +72,10 @@ class CalorieLogActivity : AppCompatActivity() {
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
-                val calories = TextView(this)
-                calories.id = View.generateViewId()
-                calories.text = log.calories.toString()
-                calories.setPadding(30, 10, 30, 10)
-                row.addView(calories)
-                val description = TextView(this)
-                description.id = View.generateViewId()
-                description.text = log.description
-                description.setPadding(30, 10, 30, 10)
-                row.addView(description)
-                val time = TextView(this)
-                time.id = View.generateViewId()
-                time.text = log.timeLogged.toString()
-                time.setPadding(30, 10, 30, 10)
-                row.addView(time)
+                row.addView(createLogTableView(log.calories.toString()))
+                row.addView(createLogTableView(log.description))
+                row.addView(createEditLogButton(log))
+                row.setPadding(0, 20, 0, 20)
                 calorieLogTable.addView(row)
             }
         }
@@ -95,10 +86,27 @@ class CalorieLogActivity : AppCompatActivity() {
 
         val dailySweetBudgetTesterObserver = Observer<Date> {}
         model.dailySweetBudgetTester.observe(this, dailySweetBudgetTesterObserver)
+    }
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
-            this.finish()
+    private fun createLogTableView(text: String): TextView {
+        val view = TextView(this)
+        view.id = View.generateViewId()
+        view.text = text
+        view.gravity = Gravity.CENTER
+        view.setPadding(10, 10, 10, 10)
+        return view
+    }
+
+    private fun createEditLogButton(log: CalorieLog): ImageButton {
+        val button = ImageButton(this)
+        button.setOnClickListener{ _ ->
+            showEditLogDialog(log)
         }
+        button.setImageResource(R.drawable.ic_baseline_edit_24)
+        button.setBackgroundResource(R.color.colorPrimaryDark)
+        button.setPadding(10, 10, 10, 10)
+        button.foregroundGravity = Gravity.CENTER
+        return button
     }
 
     private fun getCountAsInt(count: String): Int {
@@ -107,6 +115,12 @@ class CalorieLogActivity : AppCompatActivity() {
         } else {
             return count.toInt()
         }
+    }
+
+
+    fun showEditLogDialog(log: CalorieLog) {
+        val editLogDialog = EditCalorieLogFragment(log)
+        editLogDialog.show(supportFragmentManager, "edit")
     }
 
     private fun animateNumber(from: Int, to: Int, view: TextView) {

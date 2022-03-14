@@ -24,4 +24,8 @@ data class CalorieLog(
     @ColumnInfo(name = "description") val description: String,
 
     @ColumnInfo(name = "sweet", defaultValue = "1") val isSweet: Boolean,
-)
+) {
+    fun getInvertedCalories(): Int {
+        return this.calories * -1
+    }
+}

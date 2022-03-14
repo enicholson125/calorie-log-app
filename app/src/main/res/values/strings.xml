@@ -7,4 +7,7 @@
     <string name="description_hint">Honey toast</string>
     <string name="add_calorie_log">Add Entry</string>
     <string name="is_sweet">Sweet</string>
+    <string name="edit_logs_heading">Edit Entry</string>
+    <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
 </resources>
