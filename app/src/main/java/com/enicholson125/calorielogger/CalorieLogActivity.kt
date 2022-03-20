@@ -1,19 +1,19 @@
 package com.enicholson125.calorielogger
 
 import android.animation.ValueAnimator
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import com.enicholson125.calorielogger.utilities.InjectorUtils
 import com.enicholson125.calorielogger.data.CalorieLog
 import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModel
-import kotlinx.android.synthetic.main.main_page.*
 import java.util.*
 
 class CalorieLogActivity : AppCompatActivity() {
@@ -21,6 +21,7 @@ class CalorieLogActivity : AppCompatActivity() {
         InjectorUtils.provideCalorieLogViewModelFactory(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -99,6 +100,7 @@ class CalorieLogActivity : AppCompatActivity() {
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun createEditLogButton(log: CalorieLog): ImageButton {
         val button = ImageButton(this)
         button.setOnClickListener{ _ ->

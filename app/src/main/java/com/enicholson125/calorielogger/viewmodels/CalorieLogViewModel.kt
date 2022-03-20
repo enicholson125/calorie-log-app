@@ -1,5 +1,7 @@
 package com.enicholson125.calorielogger.viewmodels
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.LiveData
@@ -30,12 +32,14 @@ class CalorieLogViewModel(
         addSource(latestSweetDailyBudgetTime, ::addDailySweetCalories)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun addDailyCalories(latestBudgetTime: Date) {
         if (!DateUtils.isDateToday(latestBudgetTime)) {
             addCalorieLog(dailyBudgetAmount, "Daily Budget Full", DateUtils.addOneDay(latestBudgetTime), false)
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun addDailySweetCalories(latestSweetBudgetTime: Date) {
         if (!DateUtils.isDateToday(latestSweetBudgetTime)) {
             addCalorieLog(dailySweetBudgetAmount, "Daily Budget", DateUtils.addOneDay(latestSweetBudgetTime), true)
