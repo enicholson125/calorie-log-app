@@ -1,10 +1,13 @@
 package com.enicholson125.calorielogger.utilities;
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
 
 object DateUtils {
+    @RequiresApi(Build.VERSION_CODES.O)
     fun isSameDay(first: Date, second: Date): Boolean {
         val firstLocalDate: LocalDate = first.toInstant()
             .atZone(ZoneId.systemDefault())
@@ -15,6 +18,7 @@ object DateUtils {
         return firstLocalDate.isEqual(secondLocalDate)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun isDateToday(date: Date): Boolean {
         return isSameDay(getCurrentDateTime(), date)
     }
