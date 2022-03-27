@@ -10,6 +10,10 @@ class CalorieLogRepository private constructor(
 
     fun getSweetCalorieTotal() = calorieLogDAO.getSweetCalorieTotal()
 
+    fun getDayCalorieTotal(date: Date) = calorieLogDAO.getDayCalorieTotal(date)
+
+    fun getDaySweetCalorieTotal(date: Date) = calorieLogDAO.getDaySweetCalorieTotal(date)
+
     fun getLatestDailyBudgetTime() = calorieLogDAO.getLatestDailyBudgetTime()
 
     fun getLatestSweetDailyBudgetTime() = calorieLogDAO.getLatestSweetDailyBudgetTime()

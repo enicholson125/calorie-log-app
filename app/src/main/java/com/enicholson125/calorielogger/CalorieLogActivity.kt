@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.LiveData
 import com.enicholson125.calorielogger.utilities.InjectorUtils
 import com.enicholson125.calorielogger.data.CalorieLog
 import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModel
@@ -27,25 +28,19 @@ class CalorieLogActivity : AppCompatActivity() {
 
         setContentView(R.layout.main_page)
 
-        val sweetCalorieCountView = findViewById<TextView>(R.id.sweet_calorie_count)
-        val sweetCalorieCountObserver = Observer<Int> { calorieCount ->
-            animateNumber(
-                getCountAsInt(sweetCalorieCountView.text.toString()),
-                calorieCount,
-                sweetCalorieCountView
-            )
-        }
-        model.sweetCalorieTotal.observe(this, sweetCalorieCountObserver)
+        configureCalorieCount(
+            R.id.sweet_calorie_count,
+            R.id.daily_sweet_calorie_count,
+            model.sweetCalorieTotal,
+            model.todaysSweetCalories
+        )
 
-        val calorieCountView = findViewById<TextView>(R.id.calorie_count)
-        val calorieCountObserver = Observer<Int> { calorieCount ->
-            animateNumber(
-                getCountAsInt(calorieCountView.text.toString()),
-                calorieCount,
-                calorieCountView
-            )
-        }
-        model.calorieTotal.observe(this, calorieCountObserver)
+        configureCalorieCount(
+            R.id.calorie_count,
+            R.id.daily_calorie_count,
+            model.calorieTotal,
+            model.todaysCalories
+        )
 
         val checkBox = findViewById<CheckBox>(R.id.sweet_checkbox);
 
@@ -113,26 +108,65 @@ class CalorieLogActivity : AppCompatActivity() {
         return button
     }
 
-    private fun getCountAsInt(count: String): Int {
-        if (count == getString(R.string.unset)) {
-            return 0
-        } else {
-            return count.toInt()
+    private fun toggleVisibility(view: View) {
+        if (view.visibility == View.GONE) {
+            view.visibility = View.VISIBLE
+        } else if (view.visibility == View.VISIBLE) {
+            view.visibility = View.GONE
         }
     }
-
 
     fun showEditLogDialog(log: CalorieLog) {
         val editLogDialog = EditCalorieLogFragment(log)
         editLogDialog.show(supportFragmentManager, "edit")
     }
 
-    private fun animateNumber(from: Int, to: Int, view: TextView) {
-        val animator = ValueAnimator.ofInt(from, to)
+    private fun animateNumberInView(to: Int, view: TextView) {
+        val animator = ValueAnimator.ofInt(view.text.toString().toInt(), to)
         animator.duration = 500
         animator.addUpdateListener { animation ->
             view.text = animation.animatedValue.toString()
         }
         animator.start()
+    }
+
+    private fun animateTodaysCount(to: Int?, view: TextView) {
+        if (to != null) {
+            animateNumberInView(-to, view)
+        }
+    }
+
+    private fun configureCalorieCount(
+        totalViewID: Int,
+        dailyViewID: Int,
+        totalCount: LiveData<Int>,
+        dailyCount: LiveData<Int>
+    ) {
+        val totalView = findViewById<TextView>(totalViewID)
+        val totalCountObserver = Observer<Int> { calorieCount ->
+            animateNumberInView(
+                calorieCount,
+                totalView
+            )
+        }
+        totalCount.observe(this, totalCountObserver)
+
+        val dailyView = findViewById<TextView>(dailyViewID)
+        val dailyCountObserver = Observer<Int> { calorieCount ->
+            animateTodaysCount(
+                calorieCount,
+                dailyView
+            )
+        }
+        dailyCount.observe(this, dailyCountObserver)
+
+        totalView.setOnClickListener{_ ->
+            toggleVisibility(totalView)
+            toggleVisibility(dailyView)
+        }
+        dailyView.setOnClickListener{_ ->
+            toggleVisibility(totalView)
+            toggleVisibility(dailyView)
+        }
     }
 }

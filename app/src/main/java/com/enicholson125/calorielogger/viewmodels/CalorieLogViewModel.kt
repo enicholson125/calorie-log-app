@@ -24,6 +24,9 @@ class CalorieLogViewModel(
     private val latestDailyBudgetTime = calorieLogRepository.getLatestDailyBudgetTime()
     private val latestSweetDailyBudgetTime = calorieLogRepository.getLatestSweetDailyBudgetTime()
 
+    val todaysCalories = calorieLogRepository.getDayCalorieTotal(DateUtils.getCurrentDate())
+    val todaysSweetCalories = calorieLogRepository.getDaySweetCalorieTotal(DateUtils.getCurrentDate())
+
     val dailyBudgetTester = MediatorLiveData<Date>().apply {
         addSource(latestDailyBudgetTime, ::addDailyCalories)
     }

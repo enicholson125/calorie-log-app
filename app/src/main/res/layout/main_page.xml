@@ -22,7 +22,18 @@
             android:layout_margin="10sp"
             android:textSize="50sp"
             android:id="@+id/sweet_calorie_count"
-            android:text="@string/unset" />
+            android:clickable="true"
+            android:text="@string/unset_count" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:textSize="50sp"
+            android:id="@+id/daily_sweet_calorie_count"
+            android:clickable="true"
+            android:visibility="gone"
+            android:text="@string/unset_count" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +41,18 @@
             android:layout_margin="10sp"
             android:textSize="30sp"
             android:id="@+id/calorie_count"
-            android:text="@string/unset" />
+            android:clickable="true"
+            android:text="@string/unset_count" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:textSize="30sp"
+            android:id="@+id/daily_calorie_count"
+            android:clickable="true"
+            android:visibility="gone"
+            android:text="@string/unset_count" />
 
         <EditText
             android:id="@+id/enter_calories"
