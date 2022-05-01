@@ -1,16 +1,16 @@
 package com.enicholson125.calorielogger
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import com.enicholson125.calorielogger.utilities.InjectorUtils
 import com.enicholson125.calorielogger.data.CalorieLog
@@ -27,6 +27,9 @@ class CalorieLogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.main_page)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         configureCalorieCount(
             R.id.sweet_calorie_count,
@@ -86,6 +89,22 @@ class CalorieLogActivity : AppCompatActivity() {
         model.dailySweetBudgetTester.observe(this, dailySweetBudgetTesterObserver)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_settings -> {
+                showSettings()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun createLogTableView(text: String): TextView {
         val view = TextView(this)
         view.id = View.generateViewId()
@@ -114,6 +133,10 @@ class CalorieLogActivity : AppCompatActivity() {
         } else if (view.visibility == View.VISIBLE) {
             view.visibility = View.GONE
         }
+    }
+
+    fun showSettings() {
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 
     fun showEditLogDialog(log: CalorieLog) {
