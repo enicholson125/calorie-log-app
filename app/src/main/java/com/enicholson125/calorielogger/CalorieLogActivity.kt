@@ -12,11 +12,15 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
+import androidx.preference.PreferenceManager
 import com.enicholson125.calorielogger.utilities.InjectorUtils
 import com.enicholson125.calorielogger.data.CalorieLog
 import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModel
 import java.util.*
 
+
+// On 2nd of May it had value of 213400 for main budget and 45500 for sweet
+// Check main hasn't changed but sweet has
 class CalorieLogActivity : AppCompatActivity() {
     private val model: CalorieLogViewModel by viewModels {
         InjectorUtils.provideCalorieLogViewModelFactory(this)
@@ -30,6 +34,8 @@ class CalorieLogActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        updateFromPreferences()
 
         configureCalorieCount(
             R.id.sweet_calorie_count,
@@ -134,6 +140,22 @@ class CalorieLogActivity : AppCompatActivity() {
             view.visibility = View.GONE
         }
     }
+
+    private fun updateFromPreferences() {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val overallBudgetQuantity = sharedPreferences.getString("overall_budget_quantity", "")
+        model.setDailyBudgetAmount(overallBudgetQuantity)
+
+        val sweetBudgetQuantity = sharedPreferences.getString("sweet_budget_quantity", "")
+        model.setDailySweetBudgetAmount(sweetBudgetQuantity)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateFromPreferences()
+        // Add a bump to addDailyCalories in here to fix the can't run it overnight problem
+    }
+
 
     fun showSettings() {
         startActivity(Intent(this, SettingsActivity::class.java))
