@@ -19,12 +19,12 @@ import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModel
 import java.util.*
 
 
-// On 2nd of May it had value of 213400 for main budget and 45500 for sweet
-// Check main hasn't changed but sweet has
 class CalorieLogActivity : AppCompatActivity() {
     private val model: CalorieLogViewModel by viewModels {
         InjectorUtils.provideCalorieLogViewModelFactory(this)
     }
+    private var overallBudgetEnabled = true
+    private var sweetBudgetEnabled = true
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,19 +37,34 @@ class CalorieLogActivity : AppCompatActivity() {
 
         updateFromPreferences()
 
+        val totalOverallView = findViewById<TextView>(R.id.calorie_count)
+        val dailyOverallView = findViewById<TextView>(R.id.daily_calorie_count)
+        val totalSweetView = findViewById<TextView>(R.id.sweet_calorie_count)
+        val dailySweetView = findViewById<TextView>(R.id.daily_sweet_calorie_count)
+
         configureCalorieCount(
-            R.id.sweet_calorie_count,
-            R.id.daily_sweet_calorie_count,
+            totalSweetView,
+            dailySweetView,
             model.sweetCalorieTotal,
             model.todaysSweetCalories
         )
 
         configureCalorieCount(
-            R.id.calorie_count,
-            R.id.daily_calorie_count,
+            totalOverallView,
+            dailyOverallView,
             model.calorieTotal,
             model.todaysCalories
         )
+
+        if (!sweetBudgetEnabled) {
+            totalSweetView.visibility = View.GONE
+            dailySweetView.visibility = View.GONE
+        }
+
+        if (!overallBudgetEnabled) {
+            totalOverallView.visibility = View.GONE
+            dailyOverallView.visibility = View.GONE
+        }
 
         val checkBox = findViewById<CheckBox>(R.id.sweet_checkbox);
 
@@ -148,6 +163,14 @@ class CalorieLogActivity : AppCompatActivity() {
 
         val sweetBudgetQuantity = sharedPreferences.getString("sweet_budget_quantity", "")
         model.setDailySweetBudgetAmount(sweetBudgetQuantity)
+
+        overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
+        enableViewsFromPreference(overallBudgetEnabled, R.id.calorie_count, R.id.daily_calorie_count)
+        model.overallBudgetEnabled = overallBudgetEnabled
+
+        sweetBudgetEnabled = sharedPreferences.getBoolean("sweet_budget_enabled", true)
+        enableViewsFromPreference(sweetBudgetEnabled, R.id.sweet_calorie_count, R.id.daily_sweet_calorie_count)
+        model.sweetBudgetEnabled = sweetBudgetEnabled
     }
 
     override fun onResume() {
@@ -181,13 +204,23 @@ class CalorieLogActivity : AppCompatActivity() {
         }
     }
 
+    private fun enableViewsFromPreference(enabled: Boolean, dailyViewID: Int, totalViewID: Int) {
+        val totalView = findViewById<TextView>(totalViewID)
+        val dailyView = findViewById<TextView>(dailyViewID)
+        if (enabled && totalView.visibility == View.GONE && dailyView.visibility == View.GONE) {
+            dailyView.visibility = View.VISIBLE
+        } else if (!enabled) {
+            dailyView.visibility = View.GONE
+            totalView.visibility = View.GONE
+        }
+    }
+
     private fun configureCalorieCount(
-        totalViewID: Int,
-        dailyViewID: Int,
+        totalView: TextView,
+        dailyView: TextView,
         totalCount: LiveData<Int>,
         dailyCount: LiveData<Int>
     ) {
-        val totalView = findViewById<TextView>(totalViewID)
         val totalCountObserver = Observer<Int> { calorieCount ->
             animateNumberInView(
                 calorieCount,
@@ -196,7 +229,6 @@ class CalorieLogActivity : AppCompatActivity() {
         }
         totalCount.observe(this, totalCountObserver)
 
-        val dailyView = findViewById<TextView>(dailyViewID)
         val dailyCountObserver = Observer<Int> { calorieCount ->
             animateTodaysCount(
                 calorieCount,

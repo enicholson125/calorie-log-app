@@ -19,6 +19,8 @@ class CalorieLogViewModel(
     private val calorieLogRepository: CalorieLogRepository,
 ) : ViewModel() {
     private val idLength = 10
+    var overallBudgetEnabled = true
+    var sweetBudgetEnabled = true
     private var dailyBudgetAmount = 2000
     private var dailySweetBudgetAmount = 500
     private val latestDailyBudgetTime = calorieLogRepository.getLatestDailyBudgetTime()
@@ -49,14 +51,14 @@ class CalorieLogViewModel(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addDailyCalories(latestBudgetTime: Date) {
-        if (!DateUtils.isDateToday(latestBudgetTime)) {
+        if (!DateUtils.isDateToday(latestBudgetTime) && overallBudgetEnabled) {
             addCalorieLog(dailyBudgetAmount, "Daily Budget Full", DateUtils.addOneDay(latestBudgetTime), false)
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addDailySweetCalories(latestSweetBudgetTime: Date) {
-        if (!DateUtils.isDateToday(latestSweetBudgetTime)) {
+        if (!DateUtils.isDateToday(latestSweetBudgetTime) && sweetBudgetEnabled) {
             addCalorieLog(dailySweetBudgetAmount, "Daily Budget", DateUtils.addOneDay(latestSweetBudgetTime), true)
         }
     }
