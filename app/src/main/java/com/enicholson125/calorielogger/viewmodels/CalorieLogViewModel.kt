@@ -19,10 +19,24 @@ class CalorieLogViewModel(
     private val calorieLogRepository: CalorieLogRepository,
 ) : ViewModel() {
     private val idLength = 10
-    private val dailyBudgetAmount = 2000
-    private val dailySweetBudgetAmount = 500
+    var overallBudgetEnabled = true
+    var sweetBudgetEnabled = true
+    private var dailyBudgetAmount = 2000
+    private var dailySweetBudgetAmount = 500
     private val latestDailyBudgetTime = calorieLogRepository.getLatestDailyBudgetTime()
     private val latestSweetDailyBudgetTime = calorieLogRepository.getLatestSweetDailyBudgetTime()
+
+    fun setDailyBudgetAmount(amount: String?) {
+        if (amount != null && amount != "") {
+            dailyBudgetAmount = amount.toInt()
+        }
+    }
+
+    fun setDailySweetBudgetAmount(amount: String?) {
+        if (amount != null && amount != "") {
+            dailySweetBudgetAmount = amount.toInt()
+        }
+    }
 
     val todaysCalories = calorieLogRepository.getDayCalorieTotal(DateUtils.getCurrentDate())
     val todaysSweetCalories = calorieLogRepository.getDaySweetCalorieTotal(DateUtils.getCurrentDate())
@@ -37,14 +51,14 @@ class CalorieLogViewModel(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addDailyCalories(latestBudgetTime: Date) {
-        if (!DateUtils.isDateToday(latestBudgetTime)) {
+        if (!DateUtils.isDateToday(latestBudgetTime) && overallBudgetEnabled) {
             addCalorieLog(dailyBudgetAmount, "Daily Budget Full", DateUtils.addOneDay(latestBudgetTime), false)
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addDailySweetCalories(latestSweetBudgetTime: Date) {
-        if (!DateUtils.isDateToday(latestSweetBudgetTime)) {
+        if (!DateUtils.isDateToday(latestSweetBudgetTime) && sweetBudgetEnabled) {
             addCalorieLog(dailySweetBudgetAmount, "Daily Budget", DateUtils.addOneDay(latestSweetBudgetTime), true)
         }
     }

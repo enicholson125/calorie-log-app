@@ -1,26 +1,30 @@
 package com.enicholson125.calorielogger
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
+import androidx.preference.PreferenceManager
 import com.enicholson125.calorielogger.utilities.InjectorUtils
 import com.enicholson125.calorielogger.data.CalorieLog
 import com.enicholson125.calorielogger.viewmodels.CalorieLogViewModel
 import java.util.*
 
+
 class CalorieLogActivity : AppCompatActivity() {
     private val model: CalorieLogViewModel by viewModels {
         InjectorUtils.provideCalorieLogViewModelFactory(this)
     }
+    private var overallBudgetEnabled = true
+    private var sweetBudgetEnabled = true
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,16 +32,26 @@ class CalorieLogActivity : AppCompatActivity() {
 
         setContentView(R.layout.main_page)
 
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        updateFromPreferences()
+
+        val totalOverallView = findViewById<TextView>(R.id.calorie_count)
+        val dailyOverallView = findViewById<TextView>(R.id.daily_calorie_count)
+        val totalSweetView = findViewById<TextView>(R.id.sweet_calorie_count)
+        val dailySweetView = findViewById<TextView>(R.id.daily_sweet_calorie_count)
+
         configureCalorieCount(
-            R.id.sweet_calorie_count,
-            R.id.daily_sweet_calorie_count,
+            totalSweetView,
+            dailySweetView,
             model.sweetCalorieTotal,
             model.todaysSweetCalories
         )
 
         configureCalorieCount(
-            R.id.calorie_count,
-            R.id.daily_calorie_count,
+            totalOverallView,
+            dailyOverallView,
             model.calorieTotal,
             model.todaysCalories
         )
@@ -86,6 +100,22 @@ class CalorieLogActivity : AppCompatActivity() {
         model.dailySweetBudgetTester.observe(this, dailySweetBudgetTesterObserver)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_settings -> {
+                showSettings()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun createLogTableView(text: String): TextView {
         val view = TextView(this)
         view.id = View.generateViewId()
@@ -116,6 +146,33 @@ class CalorieLogActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateFromPreferences() {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val overallBudgetQuantity = sharedPreferences.getString("overall_budget_quantity", "")
+        model.setDailyBudgetAmount(overallBudgetQuantity)
+
+        val sweetBudgetQuantity = sharedPreferences.getString("sweet_budget_quantity", "")
+        model.setDailySweetBudgetAmount(sweetBudgetQuantity)
+
+        overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
+        updateViewsFromPreference(overallBudgetEnabled, R.id.calorie_count, R.id.daily_calorie_count)
+        model.overallBudgetEnabled = overallBudgetEnabled
+
+        sweetBudgetEnabled = sharedPreferences.getBoolean("sweet_budget_enabled", true)
+        updateViewsFromPreference(sweetBudgetEnabled, R.id.sweet_calorie_count, R.id.daily_sweet_calorie_count)
+        model.sweetBudgetEnabled = sweetBudgetEnabled
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateFromPreferences()
+    }
+
+
+    fun showSettings() {
+        startActivity(Intent(this, SettingsActivity::class.java))
+    }
+
     fun showEditLogDialog(log: CalorieLog) {
         val editLogDialog = EditCalorieLogFragment(log)
         editLogDialog.show(supportFragmentManager, "edit")
@@ -136,13 +193,23 @@ class CalorieLogActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateViewsFromPreference(enabled: Boolean, dailyViewID: Int, totalViewID: Int) {
+        val totalView = findViewById<TextView>(totalViewID)
+        val dailyView = findViewById<TextView>(dailyViewID)
+        if (enabled && totalView.visibility == View.GONE && dailyView.visibility == View.GONE) {
+            dailyView.visibility = View.VISIBLE
+        } else if (!enabled) {
+            dailyView.visibility = View.GONE
+            totalView.visibility = View.GONE
+        }
+    }
+
     private fun configureCalorieCount(
-        totalViewID: Int,
-        dailyViewID: Int,
+        totalView: TextView,
+        dailyView: TextView,
         totalCount: LiveData<Int>,
         dailyCount: LiveData<Int>
     ) {
-        val totalView = findViewById<TextView>(totalViewID)
         val totalCountObserver = Observer<Int> { calorieCount ->
             animateNumberInView(
                 calorieCount,
@@ -151,7 +218,6 @@ class CalorieLogActivity : AppCompatActivity() {
         }
         totalCount.observe(this, totalCountObserver)
 
-        val dailyView = findViewById<TextView>(dailyViewID)
         val dailyCountObserver = Observer<Int> { calorieCount ->
             animateTodaysCount(
                 calorieCount,

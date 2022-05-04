@@ -1,0 +1,32 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/overall_budget">
+
+        <SwitchPreferenceCompat
+            app:key="overall_budget_enabled"
+            app:defaultValue="true"
+            app:title="@string/enabled" />
+
+        <EditTextPreference
+            app:key="overall_budget_quantity"
+            app:title="@string/budget"
+            app:defaultValue="2500"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/sweet_budget">
+
+        <SwitchPreferenceCompat
+            app:key="sweet_budget_enabled"
+            app:title="@string/enabled" />
+
+        <EditTextPreference
+            app:key="sweet_budget_quantity"
+            app:title="@string/budget"
+            app:defaultValue="500"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
