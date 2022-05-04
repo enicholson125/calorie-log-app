@@ -56,16 +56,6 @@ class CalorieLogActivity : AppCompatActivity() {
             model.todaysCalories
         )
 
-        if (!sweetBudgetEnabled) {
-            totalSweetView.visibility = View.GONE
-            dailySweetView.visibility = View.GONE
-        }
-
-        if (!overallBudgetEnabled) {
-            totalOverallView.visibility = View.GONE
-            dailyOverallView.visibility = View.GONE
-        }
-
         val checkBox = findViewById<CheckBox>(R.id.sweet_checkbox);
 
         val calorieEntry = findViewById<EditText>(R.id.enter_calories)
@@ -165,18 +155,17 @@ class CalorieLogActivity : AppCompatActivity() {
         model.setDailySweetBudgetAmount(sweetBudgetQuantity)
 
         overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
-        enableViewsFromPreference(overallBudgetEnabled, R.id.calorie_count, R.id.daily_calorie_count)
+        updateViewsFromPreference(overallBudgetEnabled, R.id.calorie_count, R.id.daily_calorie_count)
         model.overallBudgetEnabled = overallBudgetEnabled
 
         sweetBudgetEnabled = sharedPreferences.getBoolean("sweet_budget_enabled", true)
-        enableViewsFromPreference(sweetBudgetEnabled, R.id.sweet_calorie_count, R.id.daily_sweet_calorie_count)
+        updateViewsFromPreference(sweetBudgetEnabled, R.id.sweet_calorie_count, R.id.daily_sweet_calorie_count)
         model.sweetBudgetEnabled = sweetBudgetEnabled
     }
 
     override fun onResume() {
         super.onResume()
         updateFromPreferences()
-        // Add a bump to addDailyCalories in here to fix the can't run it overnight problem
     }
 
 
@@ -204,7 +193,7 @@ class CalorieLogActivity : AppCompatActivity() {
         }
     }
 
-    private fun enableViewsFromPreference(enabled: Boolean, dailyViewID: Int, totalViewID: Int) {
+    private fun updateViewsFromPreference(enabled: Boolean, dailyViewID: Int, totalViewID: Int) {
         val totalView = findViewById<TextView>(totalViewID)
         val dailyView = findViewById<TextView>(dailyViewID)
         if (enabled && totalView.visibility == View.GONE && dailyView.visibility == View.GONE) {

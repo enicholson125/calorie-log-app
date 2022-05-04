@@ -22,7 +22,7 @@
     <string name="edit_logs_heading">Edit Entry</string>
     <string name="update">Update</string>
     <string name="cancel">Cancel</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
     <string name="overall_budget">Total Calories</string>
