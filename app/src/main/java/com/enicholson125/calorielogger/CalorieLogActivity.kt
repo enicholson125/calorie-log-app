@@ -39,12 +39,19 @@ class CalorieLogActivity : AppCompatActivity() {
 
         val totalOverallView = findViewById<TextView>(R.id.calorie_count)
         val dailyOverallView = findViewById<TextView>(R.id.daily_calorie_count)
+        val totalOverallTitle = findViewById<TextView>(R.id.overall_budget_left_title)
+        val dailyOverallTitle = findViewById<TextView>(R.id.overall_daily_calorie_title)
+
         val totalSweetView = findViewById<TextView>(R.id.sweet_calorie_count)
         val dailySweetView = findViewById<TextView>(R.id.daily_sweet_calorie_count)
+        val totalSweetTitle = findViewById<TextView>(R.id.sweet_budget_left_title)
+        val dailySweetTitle = findViewById<TextView>(R.id.sweet_daily_calorie_title)
 
         configureCalorieCount(
             totalSweetView,
             dailySweetView,
+            totalSweetTitle,
+            dailySweetTitle,
             model.sweetCalorieTotal,
             model.todaysSweetCalories
         )
@@ -52,6 +59,8 @@ class CalorieLogActivity : AppCompatActivity() {
         configureCalorieCount(
             totalOverallView,
             dailyOverallView,
+            totalOverallTitle,
+            dailyOverallTitle,
             model.calorieTotal,
             model.todaysCalories
         )
@@ -155,11 +164,11 @@ class CalorieLogActivity : AppCompatActivity() {
         model.setDailySweetBudgetAmount(sweetBudgetQuantity)
 
         overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
-        updateViewsFromPreference(overallBudgetEnabled, R.id.calorie_count, R.id.daily_calorie_count)
+        updateCalorieBarsFromPreference(overallBudgetEnabled, R.id.overall_calorie_bar)
         model.overallBudgetEnabled = overallBudgetEnabled
 
         sweetBudgetEnabled = sharedPreferences.getBoolean("sweet_budget_enabled", true)
-        updateViewsFromPreference(sweetBudgetEnabled, R.id.sweet_calorie_count, R.id.daily_sweet_calorie_count)
+        updateCalorieBarsFromPreference(sweetBudgetEnabled, R.id.sweet_calorie_bar)
         model.sweetBudgetEnabled = sweetBudgetEnabled
     }
 
@@ -193,20 +202,20 @@ class CalorieLogActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateViewsFromPreference(enabled: Boolean, dailyViewID: Int, totalViewID: Int) {
-        val totalView = findViewById<TextView>(totalViewID)
-        val dailyView = findViewById<TextView>(dailyViewID)
-        if (enabled && totalView.visibility == View.GONE && dailyView.visibility == View.GONE) {
-            dailyView.visibility = View.VISIBLE
+    private fun updateCalorieBarsFromPreference(enabled: Boolean, calorieBarLayoutID: Int) {
+        val calorieBarLayout = findViewById<LinearLayout>(calorieBarLayoutID)
+        if (enabled) {
+            calorieBarLayout.visibility = View.VISIBLE
         } else if (!enabled) {
-            dailyView.visibility = View.GONE
-            totalView.visibility = View.GONE
+            calorieBarLayout.visibility = View.GONE
         }
     }
 
     private fun configureCalorieCount(
         totalView: TextView,
         dailyView: TextView,
+        totalTitle: TextView,
+        dailyTitle: TextView,
         totalCount: LiveData<Int>,
         dailyCount: LiveData<Int>
     ) {
@@ -229,10 +238,14 @@ class CalorieLogActivity : AppCompatActivity() {
         totalView.setOnClickListener{_ ->
             toggleVisibility(totalView)
             toggleVisibility(dailyView)
+            toggleVisibility(totalTitle)
+            toggleVisibility(dailyTitle)
         }
         dailyView.setOnClickListener{_ ->
             toggleVisibility(totalView)
             toggleVisibility(dailyView)
+            toggleVisibility(totalTitle)
+            toggleVisibility(dailyTitle)
         }
     }
 }

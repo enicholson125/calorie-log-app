@@ -23,51 +23,139 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="10sp"
-            android:textSize="50sp"
-            android:id="@+id/sweet_calorie_count"
-            android:clickable="true"
-            android:text="@string/unset_count" />
+            android:id="@+id/overall_calorie_bar">
 
-        <TextView
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:id="@+id/overall_calorie_title"
+                android:text="@string/overall_calorie_title" />
+
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="40sp"
+                android:id="@+id/calorie_count"
+                android:gravity="center"
+                android:clickable="true"
+                android:text="@string/unset_count" />
+
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="40sp"
+                android:id="@+id/daily_calorie_count"
+                android:gravity="center"
+                android:clickable="true"
+                android:visibility="gone"
+                android:text="@string/unset_count" />
+
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="15sp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:id="@+id/overall_daily_calorie_title"
+                android:text="@string/daily_calories_title" />
+
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:id="@+id/overall_budget_left_title"
+                android:text="@string/budget_left_title" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
-            android:textSize="50sp"
-            android:id="@+id/daily_sweet_calorie_count"
-            android:clickable="true"
-            android:visibility="gone"
-            android:text="@string/unset_count" />
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:id="@+id/sweet_calorie_bar">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10sp"
-            android:textSize="30sp"
-            android:id="@+id/calorie_count"
-            android:clickable="true"
-            android:text="@string/unset_count" />
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:id="@+id/sweet_calorie_title"
+                android:text="@string/sweet_calorie_title" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10sp"
-            android:textSize="30sp"
-            android:id="@+id/daily_calorie_count"
-            android:clickable="true"
-            android:visibility="gone"
-            android:text="@string/unset_count" />
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="40sp"
+                android:id="@+id/sweet_calorie_count"
+                android:gravity="center"
+                android:clickable="true"
+                android:text="@string/unset_count" />
+
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="40sp"
+                android:id="@+id/daily_sweet_calorie_count"
+                android:gravity="center"
+                android:clickable="true"
+                android:visibility="gone"
+                android:text="@string/unset_count" />
+
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="15sp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:id="@+id/sweet_daily_calorie_title"
+                android:text="@string/daily_calories_title" />
+
+            <TextView
+                android:layout_width="130sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:id="@+id/sweet_budget_left_title"
+                android:text="@string/budget_left_title" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/enter_calories"
             android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
+            android:layout_marginTop="20sp"
             android:layout_marginLeft="20sp"
             android:layout_marginRight="20sp"
             android:layout_marginBottom="4sp"

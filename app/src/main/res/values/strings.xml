@@ -14,6 +14,11 @@
     <string name="unset">unset</string>
     <string name="logs_heading">Logs</string>
 
+    <string name="sweet_calorie_title">Sweet calories</string>
+    <string name="overall_calorie_title">Total calories</string>
+    <string name="daily_calories_title">Today</string>
+    <string name="budget_left_title">Remaining</string>
+
     <string name="empty"></string>
     <string name="calorie_hint">100</string>
     <string name="description_hint">Honey toast</string>
