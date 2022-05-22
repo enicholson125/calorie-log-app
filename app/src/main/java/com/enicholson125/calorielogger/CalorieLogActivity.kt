@@ -37,30 +37,22 @@ class CalorieLogActivity : AppCompatActivity() {
 
         updateFromPreferences()
 
-        val totalOverallView = findViewById<TextView>(R.id.calorie_count)
-        val dailyOverallView = findViewById<TextView>(R.id.daily_calorie_count)
-        val totalOverallTitle = findViewById<TextView>(R.id.overall_budget_left_title)
-        val dailyOverallTitle = findViewById<TextView>(R.id.overall_daily_calorie_title)
-
-        val totalSweetView = findViewById<TextView>(R.id.sweet_calorie_count)
-        val dailySweetView = findViewById<TextView>(R.id.daily_sweet_calorie_count)
-        val totalSweetTitle = findViewById<TextView>(R.id.sweet_budget_left_title)
-        val dailySweetTitle = findViewById<TextView>(R.id.sweet_daily_calorie_title)
-
         configureCalorieCount(
-            totalSweetView,
-            dailySweetView,
-            totalSweetTitle,
-            dailySweetTitle,
+            findViewById(R.id.sweet_calorie_bar),
+            findViewById<TextView>(R.id.sweet_calorie_count),
+            findViewById<TextView>(R.id.daily_sweet_calorie_count),
+            findViewById<TextView>(R.id.sweet_budget_left_title),
+            findViewById<TextView>(R.id.sweet_daily_calorie_title),
             model.sweetCalorieTotal,
             model.todaysSweetCalories
         )
 
         configureCalorieCount(
-            totalOverallView,
-            dailyOverallView,
-            totalOverallTitle,
-            dailyOverallTitle,
+            findViewById(R.id.overall_calorie_bar),
+            findViewById<TextView>(R.id.calorie_count),
+            findViewById<TextView>(R.id.daily_calorie_count),
+            findViewById<TextView>(R.id.overall_budget_left_title),
+            findViewById<TextView>(R.id.overall_daily_calorie_title),
             model.calorieTotal,
             model.todaysCalories
         )
@@ -212,6 +204,7 @@ class CalorieLogActivity : AppCompatActivity() {
     }
 
     private fun configureCalorieCount(
+        countBar: LinearLayout,
         totalView: TextView,
         dailyView: TextView,
         totalTitle: TextView,
@@ -235,13 +228,7 @@ class CalorieLogActivity : AppCompatActivity() {
         }
         dailyCount.observe(this, dailyCountObserver)
 
-        totalView.setOnClickListener{_ ->
-            toggleVisibility(totalView)
-            toggleVisibility(dailyView)
-            toggleVisibility(totalTitle)
-            toggleVisibility(dailyTitle)
-        }
-        dailyView.setOnClickListener{_ ->
+        countBar.setOnClickListener{_ ->
             toggleVisibility(totalView)
             toggleVisibility(dailyView)
             toggleVisibility(totalTitle)

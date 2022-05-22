@@ -28,7 +28,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="10sp"
+            android:layout_marginTop ="10sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginLeft="5sp"
+            android:clickable="true"
+            android:background="@drawable/light_yellow_rounded_corners"
             android:id="@+id/overall_calorie_bar">
 
             <TextView
@@ -49,7 +53,6 @@
                 android:textSize="40sp"
                 android:id="@+id/calorie_count"
                 android:gravity="center"
-                android:clickable="true"
                 android:text="@string/unset_count" />
 
             <TextView
@@ -60,7 +63,6 @@
                 android:textSize="40sp"
                 android:id="@+id/daily_calorie_count"
                 android:gravity="center"
-                android:clickable="true"
                 android:visibility="gone"
                 android:text="@string/unset_count" />
 
@@ -92,6 +94,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
+            android:layout_marginTop ="10sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginLeft="5sp"
+            android:clickable="true"
+            android:background="@drawable/light_yellow_rounded_corners"
             android:id="@+id/sweet_calorie_bar">
 
             <TextView
@@ -112,7 +119,6 @@
                 android:textSize="40sp"
                 android:id="@+id/sweet_calorie_count"
                 android:gravity="center"
-                android:clickable="true"
                 android:text="@string/unset_count" />
 
             <TextView
@@ -123,7 +129,6 @@
                 android:textSize="40sp"
                 android:id="@+id/daily_sweet_calorie_count"
                 android:gravity="center"
-                android:clickable="true"
                 android:visibility="gone"
                 android:text="@string/unset_count" />
 
