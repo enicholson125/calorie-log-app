@@ -193,12 +193,17 @@
             android:layout_marginTop="10sp"
             android:text="@string/add_calorie_log" />
 
-        <TableLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/calorie_logs"
-            android:stretchColumns="1">
-        </TableLayout>
+            android:paddingTop="5sp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/calorie_logs"
+                android:stretchColumns="1">
+            </TableLayout>
+        </ScrollView>
 
     </LinearLayout>
 

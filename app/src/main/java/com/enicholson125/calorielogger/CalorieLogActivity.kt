@@ -73,7 +73,7 @@ class CalorieLogActivity : AppCompatActivity() {
         })
 
         val calorieLogTable = findViewById<TableLayout>(R.id.calorie_logs)
-        calorieLogTable.setPadding(40, 60, 40, 0)
+        calorieLogTable.setPadding(40, 50, 40, 0)
         val calorieLogObserver = Observer<List<CalorieLog>> { calorieLogs ->
             calorieLogTable.removeAllViews()
             for (log in calorieLogs) {
