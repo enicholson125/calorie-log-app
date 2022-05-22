@@ -1,10 +1,7 @@
 package com.enicholson125.calorielogger.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import java.util.*
 
 /**
@@ -38,4 +35,7 @@ interface CalorieLogDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog)
+
+    @Delete()
+    suspend fun deleteCalorieLog(calorieLog: CalorieLog)
 }

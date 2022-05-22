@@ -60,6 +60,10 @@ class EditCalorieLogFragment(
                             calorieLog.logID
                         )
                     })
+                .setNeutralButton(R.string.delete,
+                    DialogInterface.OnClickListener { _, _ ->
+                        model.deleteCalorieLog(calorieLog)
+                    })
                 .setNegativeButton(R.string.cancel,
                     DialogInterface.OnClickListener { dialog, _ ->
                         dialog.cancel()

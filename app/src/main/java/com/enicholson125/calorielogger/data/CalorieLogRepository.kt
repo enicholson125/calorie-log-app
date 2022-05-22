@@ -22,6 +22,8 @@ class CalorieLogRepository private constructor(
 
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog) = calorieLogDAO.insertCalorieLogEntry(calorieLogEntry)
 
+    suspend fun deleteCalorieLog(log: CalorieLog) = calorieLogDAO.deleteCalorieLog(log)
+
     companion object {
 
         // For Singleton instantiation

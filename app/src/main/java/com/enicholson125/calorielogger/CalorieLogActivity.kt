@@ -133,7 +133,7 @@ class CalorieLogActivity : AppCompatActivity() {
             showEditLogDialog(log)
         }
         button.setImageResource(R.drawable.ic_baseline_edit_24)
-        button.setBackgroundResource(R.color.colorPrimaryDark)
+        button.setBackgroundResource(R.color.mid_yellow)
         button.setPadding(10, 10, 10, 10)
         button.foregroundGravity = Gravity.CENTER
         return button

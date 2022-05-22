@@ -26,6 +26,7 @@
     <string name="is_sweet">Sweet</string>
     <string name="edit_logs_heading">Edit Entry</string>
     <string name="update">Update</string>
+    <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="title_activity_settings">Settings</string>
 

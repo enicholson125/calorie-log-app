@@ -81,6 +81,12 @@ class CalorieLogViewModel(
         }
     }
 
+    fun deleteCalorieLog(log: CalorieLog) {
+        viewModelScope.launch{
+            calorieLogRepository.deleteCalorieLog(log)
+        }
+    }
+
     val sweetCalorieTotal: LiveData<Int> = calorieLogRepository.getSweetCalorieTotal()
     val calorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal()
 
