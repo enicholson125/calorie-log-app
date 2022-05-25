@@ -6,5 +6,5 @@ CREATE TABLE calorie_log(
     sweet INTEGER NOT NULL DEFAULT 1
 );
 
-INSERT INTO calorie_log (id, time_logged, calories, description, sweet) VALUES ('2jcid', '2022-03-09 00:00:00', 0, 'Daily Budget', 1);
-INSERT INTO calorie_log (id, time_logged, calories, description, sweet) VALUES ('2jkid', '2022-03-09 00:00:00', 0, 'Daily Budget Full', 0);
+INSERT INTO calorie_log (id, time_logged, calories, description, sweet) VALUES ('initsweetbudgetid', '2022-05-01 00:00:00', 0, 'Daily Budget', 1);
+INSERT INTO calorie_log (id, time_logged, calories, description, sweet) VALUES ('initoverallbudgetid', '2022-05-01 00:00:00', 0, 'Daily Budget Full', 0);
