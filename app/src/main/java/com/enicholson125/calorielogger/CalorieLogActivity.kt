@@ -57,19 +57,21 @@ class CalorieLogActivity : AppCompatActivity() {
             model.todaysCalories
         )
 
-        val checkBox = findViewById<CheckBox>(R.id.sweet_checkbox);
+        val checkBox = findViewById<CheckBox>(R.id.sweet_checkbox)
 
         val calorieEntry = findViewById<EditText>(R.id.enter_calories)
         val descriptionEntry = findViewById<EditText>(R.id.enter_description)
         findViewById<Button>(R.id.add_calorie_log).setOnClickListener (fun(_) {
-            model.addUserCalorieLog(
-                calorieEntry.text.toString().toInt(),
-                descriptionEntry.text.toString(),
-                checkBox.isChecked
-            )
+            if (calorieEntry.text.isNotEmpty()) {
+                model.addUserCalorieLog(
+                    calorieEntry.text.toString().toInt(),
+                    descriptionEntry.text.toString(),
+                    checkBox.isChecked
+                )
+            }
             calorieEntry.setText("")
             descriptionEntry.setText("")
-            checkBox.isChecked = false
+            checkBox.isChecked = sweetBudgetEnabled && !overallBudgetEnabled
         })
 
         val calorieLogTable = findViewById<TableLayout>(R.id.calorie_logs)
@@ -155,13 +157,34 @@ class CalorieLogActivity : AppCompatActivity() {
         val sweetBudgetQuantity = sharedPreferences.getString("sweet_budget_quantity", "")
         model.setDailySweetBudgetAmount(sweetBudgetQuantity)
 
-        overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
-        updateCalorieBarsFromPreference(overallBudgetEnabled, R.id.overall_calorie_bar)
-        model.overallBudgetEnabled = overallBudgetEnabled
+        val sweetCheckBox = findViewById<CheckBox>(R.id.sweet_checkbox)
 
         sweetBudgetEnabled = sharedPreferences.getBoolean("sweet_budget_enabled", true)
-        updateCalorieBarsFromPreference(sweetBudgetEnabled, R.id.sweet_calorie_bar)
+        if (sweetBudgetEnabled) {
+            findViewById<LinearLayout>(R.id.sweet_calorie_bar).visibility = View.VISIBLE
+            sweetCheckBox.isChecked = true
+        } else {
+            findViewById<LinearLayout>(R.id.sweet_calorie_bar).visibility = View.GONE
+            sweetCheckBox.visibility = View.GONE
+        }
         model.sweetBudgetEnabled = sweetBudgetEnabled
+
+        overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
+        if (overallBudgetEnabled) {
+            findViewById<LinearLayout>(R.id.overall_calorie_bar).visibility = View.VISIBLE
+            sweetCheckBox.isChecked = false
+        } else {
+            findViewById<LinearLayout>(R.id.overall_calorie_bar).visibility = View.GONE
+            sweetCheckBox.visibility = View.GONE
+        }
+        model.overallBudgetEnabled = overallBudgetEnabled
+
+        if (sweetBudgetEnabled && overallBudgetEnabled) {
+            sweetCheckBox.visibility = View.VISIBLE
+            // It will end up this way anyway, due to the ordering of the two clauses
+            // but let's be explicit
+            sweetCheckBox.isChecked = false
+        }
     }
 
     override fun onResume() {
@@ -191,15 +214,6 @@ class CalorieLogActivity : AppCompatActivity() {
     private fun animateTodaysCount(to: Int?, view: TextView) {
         if (to != null) {
             animateNumberInView(-to, view)
-        }
-    }
-
-    private fun updateCalorieBarsFromPreference(enabled: Boolean, calorieBarLayoutID: Int) {
-        val calorieBarLayout = findViewById<LinearLayout>(calorieBarLayoutID)
-        if (enabled) {
-            calorieBarLayout.visibility = View.VISIBLE
-        } else if (!enabled) {
-            calorieBarLayout.visibility = View.GONE
         }
     }
 
