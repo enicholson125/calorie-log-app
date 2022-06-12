@@ -42,8 +42,8 @@ class CalorieLogViewModel(
         }
     }
 
-    val todaysCalories = calorieLogRepository.getDayCalorieTotal(DateUtils.getCurrentDate())
-    val todaysSweetCalories = calorieLogRepository.getDaySweetCalorieTotal(DateUtils.getCurrentDate())
+    val todaysCalories = calorieLogRepository.getDayCalorieTotal(DateUtils.getCurrentDate(), sweet = false)
+    val todaysSweetCalories = calorieLogRepository.getDayCalorieTotal(DateUtils.getCurrentDate(), sweet = true)
 
     val dailyBudgetTester = MediatorLiveData<Date>().apply {
         addSource(latestDailyBudgetLog, ::addDailyCalories)
@@ -109,8 +109,8 @@ class CalorieLogViewModel(
         }
     }
 
-    val sweetCalorieTotal: LiveData<Int> = calorieLogRepository.getSweetCalorieTotal()
-    val calorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal()
+    val sweetCalorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal(sweet = true)
+    val calorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal(sweet = false)
 
     val calorieLogs: LiveData<List<CalorieLog>> = calorieLogRepository.getCalorieLogsSinceDate(DateUtils.getCurrentDate())
 }
