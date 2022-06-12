@@ -151,16 +151,13 @@ class CalorieLogActivity : AppCompatActivity() {
 
     private fun updateFromPreferences() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val overallBudgetQuantity = sharedPreferences.getString("overall_budget_quantity", "")
-        model.setDailyBudgetAmount(overallBudgetQuantity)
 
-        val sweetBudgetQuantity = sharedPreferences.getString("sweet_budget_quantity", "")
-        model.setDailySweetBudgetAmount(sweetBudgetQuantity)
 
         val sweetCheckBox = findViewById<CheckBox>(R.id.sweet_checkbox)
 
         sweetBudgetEnabled = sharedPreferences.getBoolean("sweet_budget_enabled", true)
         if (sweetBudgetEnabled) {
+            model.setDailySweetBudgetAmount(sharedPreferences.getString("sweet_budget_quantity", ""))
             findViewById<LinearLayout>(R.id.sweet_calorie_bar).visibility = View.VISIBLE
             sweetCheckBox.isChecked = true
         } else {
@@ -171,6 +168,7 @@ class CalorieLogActivity : AppCompatActivity() {
 
         overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
         if (overallBudgetEnabled) {
+            model.setDailyBudgetAmount(sharedPreferences.getString("overall_budget_quantity", ""))
             findViewById<LinearLayout>(R.id.overall_calorie_bar).visibility = View.VISIBLE
             sweetCheckBox.isChecked = false
         } else {

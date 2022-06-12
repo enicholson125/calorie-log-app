@@ -23,18 +23,22 @@ class CalorieLogViewModel(
     var sweetBudgetEnabled = true
     private var dailyBudgetAmount = 2000
     private var dailySweetBudgetAmount = 500
-    private val latestDailyBudgetLog = calorieLogRepository.getLatestDailyBudgetLog()
-    private val latestSweetDailyBudgetLog = calorieLogRepository.getLatestSweetDailyBudgetLog()
+    private val latestDailyBudgetLog = calorieLogRepository.getLatestDailyBudgetLog(sweet = false)
+    private val latestSweetDailyBudgetLog = calorieLogRepository.getLatestDailyBudgetLog(sweet = true)
 
     fun setDailyBudgetAmount(amount: String?) {
         if (amount != null && amount != "") {
-            dailyBudgetAmount = amount.toInt()
+            val calorieAmount = amount.toInt()
+            dailyBudgetAmount = calorieAmount
+            updateTodaysDailyBudgetCalories(calorieAmount, sweet = false)
         }
     }
 
     fun setDailySweetBudgetAmount(amount: String?) {
         if (amount != null && amount != "") {
-            dailySweetBudgetAmount = amount.toInt()
+            val calorieAmount = amount.toInt()
+            dailyBudgetAmount = calorieAmount
+            updateTodaysDailyBudgetCalories(calorieAmount, sweet = true)
         }
     }
 
@@ -93,9 +97,21 @@ class CalorieLogViewModel(
         }
     }
 
+    private fun updateTodaysDailyBudgetCalories(calories: Int, sweet: Boolean) {
+        val log: CalorieLog?
+        if (sweet) {
+            log = latestSweetDailyBudgetLog.value
+        } else {
+            log = latestDailyBudgetLog.value
+        }
+        if (log != null) {
+            updateCalorieLog(-calories, log.description, log.timeLogged, log.isSweet, log.logID)
+        }
+    }
+
     val sweetCalorieTotal: LiveData<Int> = calorieLogRepository.getSweetCalorieTotal()
     val calorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal()
 
-    val calorieLogs: LiveData<List<CalorieLog>> = calorieLogRepository.getCalorieLogsForDate(DateUtils.getCurrentDate())
+    val calorieLogs: LiveData<List<CalorieLog>> = calorieLogRepository.getCalorieLogsSinceDate(DateUtils.getCurrentDate())
 }
 

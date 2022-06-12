@@ -25,13 +25,10 @@ interface CalorieLogDAO {
     fun getLatestTenCalorieLogs(): LiveData<List<CalorieLog>>
 
     @Query("SELECT id,time_logged,calories,description,sweet FROM calorie_log WHERE time_logged >= :date ORDER BY time_logged DESC")
-    fun getCalorieLogsForDate(date: Date): LiveData<List<CalorieLog>>
+    fun getCalorieLogsSinceDate(date: Date): LiveData<List<CalorieLog>>
 
-    @Query("SELECT id,time_logged,calories,description,sweet FROM calorie_log WHERE description='Daily Budget Full' AND sweet=0 ORDER BY time_logged DESC LIMIT 1")
-    fun getLatestDailyBudgetLog(): LiveData<CalorieLog>
-
-    @Query("SELECT id,time_logged,calories,description,sweet FROM calorie_log WHERE description='Daily Budget' AND sweet=1 ORDER BY time_logged DESC LIMIT 1")
-    fun getLatestSweetDailyBudgetLog(): LiveData<CalorieLog>
+    @Query("SELECT id,time_logged,calories,description,sweet FROM calorie_log WHERE description LIKE 'Daily Budget%' AND sweet=:sweet ORDER BY time_logged DESC LIMIT 1")
+    fun getLatestDailyBudgetLog(sweet: Boolean): LiveData<CalorieLog>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog)

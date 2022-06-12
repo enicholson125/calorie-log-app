@@ -14,11 +14,9 @@ class CalorieLogRepository private constructor(
 
     fun getDaySweetCalorieTotal(date: Date) = calorieLogDAO.getDaySweetCalorieTotal(date)
 
-    fun getLatestDailyBudgetLog() = calorieLogDAO.getLatestDailyBudgetLog()
+    fun getLatestDailyBudgetLog(sweet: Boolean) = calorieLogDAO.getLatestDailyBudgetLog(sweet)
 
-    fun getLatestSweetDailyBudgetLog() = calorieLogDAO.getLatestSweetDailyBudgetLog()
-
-    fun getCalorieLogsForDate(date: Date) = calorieLogDAO.getCalorieLogsForDate(date)
+    fun getCalorieLogsSinceDate(date: Date) = calorieLogDAO.getCalorieLogsSinceDate(date)
 
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog) = calorieLogDAO.insertCalorieLogEntry(calorieLogEntry)
 
