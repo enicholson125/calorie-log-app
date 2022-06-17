@@ -6,13 +6,17 @@ import java.util.*
 class CalorieLogRepository private constructor(
     private val calorieLogDAO: CalorieLogDAO
 ) {
-    fun getCalorieTotal( sweet: Boolean) = calorieLogDAO.getCalorieTotal(sweet)
+    fun getSweetCalorieTotal() = calorieLogDAO.getSweetCalorieTotal()
+
+    fun getCalorieTotal() = calorieLogDAO.getCalorieTotal()
 
     fun getDayCalorieTotal(date: Date, sweet: Boolean) = calorieLogDAO.getDayCalorieTotal(date, sweet)
 
     fun getLatestDailyBudgetLog(sweet: Boolean) = calorieLogDAO.getLatestDailyBudgetLog(sweet)
 
-    fun getCalorieLogsSinceDate(date: Date) = calorieLogDAO.getCalorieLogsSinceDate(date)
+    fun getAllCalorieLogs() = calorieLogDAO.getAllCalorieLogs()
+
+    fun getUserCalorieLogsSinceDate(date: Date) = calorieLogDAO.getUserCalorieLogsSinceDate(date)
 
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog) = calorieLogDAO.insertCalorieLogEntry(calorieLogEntry)
 

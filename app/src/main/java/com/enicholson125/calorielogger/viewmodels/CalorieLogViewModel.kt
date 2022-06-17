@@ -26,19 +26,15 @@ class CalorieLogViewModel(
     private val latestDailyBudgetLog = calorieLogRepository.getLatestDailyBudgetLog(sweet = false)
     private val latestSweetDailyBudgetLog = calorieLogRepository.getLatestDailyBudgetLog(sweet = true)
 
-    fun setDailyBudgetAmount(amount: String?) {
+    fun setDailyBudgetAmount(amount: String?, sweet: Boolean) {
         if (amount != null && amount != "") {
             val calorieAmount = amount.toInt()
-            dailyBudgetAmount = calorieAmount
-            updateTodaysDailyBudgetCalories(calorieAmount, sweet = false)
-        }
-    }
-
-    fun setDailySweetBudgetAmount(amount: String?) {
-        if (amount != null && amount != "") {
-            val calorieAmount = amount.toInt()
-            dailyBudgetAmount = calorieAmount
-            updateTodaysDailyBudgetCalories(calorieAmount, sweet = true)
+            if (sweet) {
+                dailySweetBudgetAmount = calorieAmount
+            } else {
+                dailyBudgetAmount = calorieAmount
+            }
+            updateTodaysDailyBudgetCalories(calorieAmount, sweet)
         }
     }
 
@@ -77,7 +73,7 @@ class CalorieLogViewModel(
         addCalorieLog(-calories, description, DateUtils.getCurrentDateTime(), isSweet)
     }
 
-    fun addCalorieLog(calories: Int, description: String, timeLog: Date, isSweet: Boolean) {
+    private fun addCalorieLog(calories: Int, description: String, timeLog: Date, isSweet: Boolean) {
         viewModelScope.launch{
             calorieLogRepository.insertCalorieLogEntry(
                 CalorieLog(GeneratorUtils.getRandomID(idLength), timeLog, calories, description, isSweet)
@@ -109,9 +105,10 @@ class CalorieLogViewModel(
         }
     }
 
-    val sweetCalorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal(sweet = true)
-    val calorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal(sweet = false)
+    val sweetCalorieTotal: LiveData<Int> = calorieLogRepository.getSweetCalorieTotal()
+    val calorieTotal: LiveData<Int> = calorieLogRepository.getCalorieTotal()
 
-    val calorieLogs: LiveData<List<CalorieLog>> = calorieLogRepository.getCalorieLogsSinceDate(DateUtils.getCurrentDate())
+    val todaysUserCalorieLogs: LiveData<List<CalorieLog>> = calorieLogRepository.getUserCalorieLogsSinceDate(DateUtils.getCurrentDate())
+    val allCalorieLogs: LiveData<List<CalorieLog>> = calorieLogRepository.getAllCalorieLogs()
 }
 

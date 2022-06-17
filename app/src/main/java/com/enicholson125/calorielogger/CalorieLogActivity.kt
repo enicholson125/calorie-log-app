@@ -79,22 +79,20 @@ class CalorieLogActivity : AppCompatActivity() {
         val calorieLogObserver = Observer<List<CalorieLog>> { calorieLogs ->
             calorieLogTable.removeAllViews()
             for (log in calorieLogs) {
-                if ((log.description != "Daily Budget") && (log.description != "Daily Budget Full")) {
-                    val row = TableRow(this)
-                    row.id = View.generateViewId()
-                    row.layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
-                    row.addView(createLogTableView(log.getInvertedCalories().toString()))
-                    row.addView(createLogTableView(log.description))
-                    row.addView(createEditLogButton(log))
-                    row.setPadding(0, 10, 0, 20)
-                    calorieLogTable.addView(row)
-                }
+                val row = TableRow(this)
+                row.id = View.generateViewId()
+                row.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                row.addView(createLogTableView(log.getInvertedCalories().toString()))
+                row.addView(createLogTableView(log.description))
+                row.addView(createEditLogButton(log))
+                row.setPadding(0, 10, 0, 20)
+                calorieLogTable.addView(row)
             }
         }
-        model.calorieLogs.observe(this, calorieLogObserver)
+        model.todaysUserCalorieLogs.observe(this, calorieLogObserver)
 
         val dailyBudgetTesterObserver = Observer<Date> {}
         model.dailyBudgetTester.observe(this, dailyBudgetTesterObserver)
@@ -106,7 +104,7 @@ class CalorieLogActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.toolbar_menu, menu)
-        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -152,12 +150,11 @@ class CalorieLogActivity : AppCompatActivity() {
     private fun updateFromPreferences() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-
         val sweetCheckBox = findViewById<CheckBox>(R.id.sweet_checkbox)
 
         sweetBudgetEnabled = sharedPreferences.getBoolean("sweet_budget_enabled", true)
         if (sweetBudgetEnabled) {
-            model.setDailySweetBudgetAmount(sharedPreferences.getString("sweet_budget_quantity", ""))
+            model.setDailyBudgetAmount(sharedPreferences.getString("sweet_budget_quantity", ""), sweet=true)
             findViewById<LinearLayout>(R.id.sweet_calorie_bar).visibility = View.VISIBLE
             sweetCheckBox.isChecked = true
         } else {
@@ -168,7 +165,7 @@ class CalorieLogActivity : AppCompatActivity() {
 
         overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
         if (overallBudgetEnabled) {
-            model.setDailyBudgetAmount(sharedPreferences.getString("overall_budget_quantity", ""))
+            model.setDailyBudgetAmount(sharedPreferences.getString("overall_budget_quantity", ""), sweet=false)
             findViewById<LinearLayout>(R.id.overall_calorie_bar).visibility = View.VISIBLE
             sweetCheckBox.isChecked = false
         } else {
