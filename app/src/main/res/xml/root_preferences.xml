@@ -19,6 +19,7 @@
 
         <SwitchPreferenceCompat
             app:key="sweet_budget_enabled"
+            app:defaultValue="true"
             app:title="@string/enabled" />
 
         <EditTextPreference

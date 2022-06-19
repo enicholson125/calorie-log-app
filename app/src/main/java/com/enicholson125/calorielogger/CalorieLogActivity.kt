@@ -153,32 +153,33 @@ class CalorieLogActivity : AppCompatActivity() {
         val sweetCheckBox = findViewById<CheckBox>(R.id.sweet_checkbox)
 
         sweetBudgetEnabled = sharedPreferences.getBoolean("sweet_budget_enabled", true)
+        overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
+        val sweetBudgetAmount = sharedPreferences.getString("sweet_budget_quantity", "")
+        val overallBudgetAmount = sharedPreferences.getString("overall_budget_quantity", "")
+
+        model.setValuesFromPreferences(sweetBudgetEnabled, overallBudgetEnabled, sweetBudgetAmount, overallBudgetAmount)
+
         if (sweetBudgetEnabled) {
-            model.setDailyBudgetAmount(sharedPreferences.getString("sweet_budget_quantity", ""), sweet=true)
             findViewById<LinearLayout>(R.id.sweet_calorie_bar).visibility = View.VISIBLE
             sweetCheckBox.isChecked = true
         } else {
             findViewById<LinearLayout>(R.id.sweet_calorie_bar).visibility = View.GONE
             sweetCheckBox.visibility = View.GONE
         }
-        model.sweetBudgetEnabled = sweetBudgetEnabled
 
-        overallBudgetEnabled = sharedPreferences.getBoolean("overall_budget_enabled", true)
         if (overallBudgetEnabled) {
-            model.setDailyBudgetAmount(sharedPreferences.getString("overall_budget_quantity", ""), sweet=false)
             findViewById<LinearLayout>(R.id.overall_calorie_bar).visibility = View.VISIBLE
             sweetCheckBox.isChecked = false
         } else {
             findViewById<LinearLayout>(R.id.overall_calorie_bar).visibility = View.GONE
             sweetCheckBox.visibility = View.GONE
         }
-        model.overallBudgetEnabled = overallBudgetEnabled
 
         if (sweetBudgetEnabled && overallBudgetEnabled) {
-            sweetCheckBox.visibility = View.VISIBLE
             // It will end up this way anyway, due to the ordering of the two clauses
             // but let's be explicit
             sweetCheckBox.isChecked = false
+            sweetCheckBox.visibility = View.VISIBLE
         }
     }
 
