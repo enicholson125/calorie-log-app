@@ -11,7 +11,8 @@
             app:key="overall_budget_quantity"
             app:title="@string/budget"
             app:defaultValue="2500"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            app:dialogMessage="@string/overall_budget_preference_desc"/>
 
     </PreferenceCategory>
 
@@ -26,7 +27,8 @@
             app:key="sweet_budget_quantity"
             app:title="@string/budget"
             app:defaultValue="500"
-            app:useSimpleSummaryProvider="true" />
+            app:useSimpleSummaryProvider="true"
+            app:dialogMessage="@string/sweet_budget_preference_desc"/>
 
     </PreferenceCategory>
 

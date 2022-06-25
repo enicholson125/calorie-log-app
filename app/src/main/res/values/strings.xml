@@ -34,7 +34,9 @@
     <string name="overall_budget">Total Calories</string>
     <string name="sweet_budget">Sweet Calories</string>
 
-    <!-- Sweet Preferences -->
+    <!-- Calorie Preferences -->
     <string name="enabled">Enabled</string>
     <string name="budget">Daily calorie budget</string>
+    <string name="overall_budget_preference_desc">Total number of calories added each day. It includes the sweet calorie budget, if enabled.</string>
+    <string name="sweet_budget_preference_desc">Total number of sweet calories added each day.</string>
 </resources>
