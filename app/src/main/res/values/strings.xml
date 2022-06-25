@@ -33,10 +33,13 @@
     <!-- Preference Titles -->
     <string name="overall_budget">Total Calories</string>
     <string name="sweet_budget">Sweet Calories</string>
+    <string name="reset">Reset</string>
 
     <!-- Calorie Preferences -->
     <string name="enabled">Enabled</string>
     <string name="budget">Daily calorie budget</string>
     <string name="overall_budget_preference_desc">Total number of calories added each day. It includes the sweet calorie budget, if enabled.</string>
     <string name="sweet_budget_preference_desc">Total number of sweet calories added each day.</string>
+    <string name="reset_all">Reset calorie history</string>
+    <string name="reset_desc">Resets the calorie history of your app to as new. This will delete all your logged calories!</string>
 </resources>

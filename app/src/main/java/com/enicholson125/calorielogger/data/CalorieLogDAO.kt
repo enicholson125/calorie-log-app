@@ -32,4 +32,7 @@ interface CalorieLogDAO {
 
     @Delete()
     suspend fun deleteCalorieLog(calorieLog: CalorieLog)
+
+    @Query("DELETE FROM calorie_log WHERE id != 'initsweetbudgetid' AND id != 'initoverallbudgetid'")
+    suspend fun resetCalorieLogs()
 }

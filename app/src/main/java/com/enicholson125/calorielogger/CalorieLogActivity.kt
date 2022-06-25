@@ -2,6 +2,7 @@ package com.enicholson125.calorielogger
 
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.*
@@ -180,6 +181,13 @@ class CalorieLogActivity : AppCompatActivity() {
             // but let's be explicit
             sweetCheckBox.isChecked = false
             sweetCheckBox.visibility = View.VISIBLE
+        }
+
+        if (sharedPreferences.getBoolean("reset", false)) {
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putBoolean("reset", false)
+            editor.apply()
+            model.resetCalorieLogs()
         }
     }
 

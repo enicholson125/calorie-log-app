@@ -112,6 +112,12 @@ class CalorieLogViewModel(
         }
     }
 
+    fun resetCalorieLogs() {
+        viewModelScope.launch{
+            calorieLogRepository.resetCalorieLogs()
+        }
+    }
+
     private fun updateTodaysDailyBudgetCalories(calories: Int, sweet: Boolean) {
         val log: CalorieLog?
         if (sweet) {

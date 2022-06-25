@@ -32,4 +32,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/reset">
+
+        <SwitchPreferenceCompat
+            app:key="reset"
+            app:defaultValue="false"
+            app:title="@string/reset_all"
+            app:summary="@string/reset_desc"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
