@@ -15,8 +15,11 @@ interface CalorieLogDAO {
     @Query("SELECT SUM(calories) FROM calorie_log")
     fun getCalorieTotal(): LiveData<Int>
 
-    @Query("SELECT SUM(calories) FROM calorie_log WHERE sweet=:sweet AND time_logged >= :date AND description!='Daily Budget' AND description!='Daily Budget Full'")
-    fun getDayCalorieTotal(date: Date, sweet: Boolean): LiveData<Int>
+    @Query("SELECT SUM(calories) FROM calorie_log WHERE time_logged >= :date AND description NOT LIKE 'Daily Budget%'")
+    fun getDayCalorieTotal(date: Date): LiveData<Int>
+
+    @Query("SELECT SUM(calories) FROM calorie_log WHERE sweet=1 AND time_logged >= :date AND description NOT LIKE 'Daily Budget%'")
+    fun getSweetDayCalorieTotal(date: Date): LiveData<Int>
 
     @Query("SELECT id,time_logged,calories,description,sweet FROM calorie_log ORDER BY time_logged DESC")
     fun getAllCalorieLogs(): LiveData<List<CalorieLog>>
