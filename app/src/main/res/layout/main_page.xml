@@ -191,6 +191,7 @@
             android:id="@+id/add_calorie_log"
             android:background="@color/colorPrimaryDark"
             android:layout_marginTop="10sp"
+            android:enabled="false"
             android:text="@string/add_calorie_log" />
 
         <ScrollView

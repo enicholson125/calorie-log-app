@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -61,6 +63,7 @@ class CalorieLogActivity : AppCompatActivity() {
         val checkBox = findViewById<CheckBox>(R.id.sweet_checkbox)
 
         val calorieEntry = findViewById<EditText>(R.id.enter_calories)
+        calorieEntry.addTextChangedListener(textWatcher)
         val descriptionEntry = findViewById<EditText>(R.id.enter_description)
         findViewById<Button>(R.id.add_calorie_log).setOnClickListener (fun(_) {
             if (calorieEntry.text.isNotEmpty()) {
@@ -196,6 +199,19 @@ class CalorieLogActivity : AppCompatActivity() {
         updateFromPreferences()
     }
 
+    private val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (s.toString() == "") {
+                findViewById<Button>(R.id.add_calorie_log).isEnabled = false
+            } else {
+                findViewById<Button>(R.id.add_calorie_log).isEnabled = true
+            }
+        }
+    }
 
     fun showSettings() {
         startActivity(Intent(this, SettingsActivity::class.java))
