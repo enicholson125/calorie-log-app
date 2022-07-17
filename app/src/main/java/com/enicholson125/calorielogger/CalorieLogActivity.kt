@@ -42,20 +42,20 @@ class CalorieLogActivity : AppCompatActivity() {
 
         configureCalorieCount(
             findViewById(R.id.sweet_calorie_bar),
-            findViewById<TextView>(R.id.sweet_calorie_count),
-            findViewById<TextView>(R.id.daily_sweet_calorie_count),
-            findViewById<TextView>(R.id.sweet_budget_left_title),
-            findViewById<TextView>(R.id.sweet_daily_calorie_title),
+            findViewById(R.id.sweet_calorie_count),
+            findViewById(R.id.daily_sweet_calorie_count),
+            findViewById(R.id.sweet_budget_left_title),
+            findViewById(R.id.sweet_daily_calorie_title),
             model.sweetCalorieTotal,
             model.todaysSweetCalories
         )
 
         configureCalorieCount(
             findViewById(R.id.overall_calorie_bar),
-            findViewById<TextView>(R.id.calorie_count),
-            findViewById<TextView>(R.id.daily_calorie_count),
-            findViewById<TextView>(R.id.overall_budget_left_title),
-            findViewById<TextView>(R.id.overall_daily_calorie_title),
+            findViewById(R.id.calorie_count),
+            findViewById(R.id.daily_calorie_count),
+            findViewById(R.id.overall_budget_left_title),
+            findViewById(R.id.overall_daily_calorie_title),
             model.calorieTotal,
             model.todaysCalories
         )
@@ -133,9 +133,7 @@ class CalorieLogActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun createEditLogButton(log: CalorieLog): ImageButton {
         val button = ImageButton(this)
-        button.setOnClickListener{ _ ->
-            showEditLogDialog(log)
-        }
+        button.setOnClickListener{ showEditLogDialog(log) }
         button.setImageResource(R.drawable.ic_baseline_edit_24)
         button.setBackgroundResource(R.color.mid_yellow)
         button.setPadding(10, 10, 10, 10)
@@ -262,7 +260,7 @@ class CalorieLogActivity : AppCompatActivity() {
         }
         dailyCount.observe(this, dailyCountObserver)
 
-        countBar.setOnClickListener{_ ->
+        countBar.setOnClickListener{
             toggleVisibility(totalView)
             toggleVisibility(dailyView)
             toggleVisibility(totalTitle)

@@ -33,7 +33,7 @@ interface CalorieLogDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCalorieLogEntry(calorieLogEntry: CalorieLog)
 
-    @Delete()
+    @Delete
     suspend fun deleteCalorieLog(calorieLog: CalorieLog)
 
     @Query("DELETE FROM calorie_log WHERE id != 'initsweetbudgetid' AND id != 'initoverallbudgetid'")

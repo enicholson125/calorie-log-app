@@ -8,7 +8,7 @@ object GeneratorUtils {
 
     fun getRandomID(length: Int): String {
         return (1..length)
-            .map { i -> Random.nextInt(0, idCharPool.size) }
+            .map { Random.nextInt(0, idCharPool.size) }
             .map(idCharPool::get)
             .joinToString("")
     }

@@ -10,7 +10,7 @@ import java.util.*
     tableName = "calorie_log",
 )
 data class CalorieLog(
-    @PrimaryKey()
+    @PrimaryKey
     @ColumnInfo(name = "id")
     @NonNull
     var logID: String,

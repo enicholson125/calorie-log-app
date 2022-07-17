@@ -5,11 +5,9 @@ import android.app.Dialog
 import androidx.fragment.app.DialogFragment
 import android.os.Bundle
 import android.content.DialogInterface
-import android.widget.ImageView
 import android.widget.EditText
 import android.content.Context
 import android.widget.CheckBox
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.enicholson125.calorielogger.utilities.InjectorUtils
 import com.enicholson125.calorielogger.data.CalorieLog
@@ -33,7 +31,7 @@ class EditCalorieLogFragment(
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             // Get the layout inflater
-            val inflater = requireActivity().layoutInflater;
+            val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.edit_calorie_log_fragment, null)
 
             val calorieEntry = view.findViewById<EditText>(R.id.edit_calories)

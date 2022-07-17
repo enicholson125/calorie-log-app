@@ -1,4 +1,4 @@
-package com.enicholson125.calorielogger.utilities;
+package com.enicholson125.calorielogger.utilities
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -28,7 +28,7 @@ object DateUtils {
     }
 
     fun getCurrentDate(): Date {
-        var now = getCurrentDateTime()
+        val now = getCurrentDateTime()
         now.hours = 0
         now.minutes = 0
         now.seconds = 0
@@ -37,8 +37,8 @@ object DateUtils {
 
     fun addOneDay(date: Date): Date {
         val c = Calendar.getInstance()
-        c.setTime(date)
-        c.add(Calendar.DATE, 1);
-        return c.getTime()
+        c.time = date
+        c.add(Calendar.DATE, 1)
+        return c.time
     }
 }
