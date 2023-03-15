@@ -32,7 +32,7 @@
             android:layout_marginRight="5sp"
             android:layout_marginLeft="5sp"
             android:clickable="true"
-            android:background="@drawable/light_yellow_rounded_corners"
+            android:background="@drawable/calorie_box"
             android:id="@+id/overall_calorie_bar">
 
             <TextView
@@ -98,7 +98,7 @@
             android:layout_marginRight="5sp"
             android:layout_marginLeft="5sp"
             android:clickable="true"
-            android:background="@drawable/light_yellow_rounded_corners"
+            android:background="@drawable/calorie_box"
             android:id="@+id/sweet_calorie_bar">
 
             <TextView

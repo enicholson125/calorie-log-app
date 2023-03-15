@@ -11,6 +11,7 @@
     <color name="mid_yellow">#FFD352</color>
     <color name="light_yellow">#FDF0C9</color>
     <color name="light_grey">#EFEFEF</color>
+    <color name="grey">#777777</color>
 
     <color name="colorPrimary">#FFE100</color>
     <color name="colorPrimaryDark">#FFBE00</color>
